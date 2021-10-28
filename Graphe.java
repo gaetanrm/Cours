@@ -1,47 +1,42 @@
 import java.util.*;
 
-class  Graphe {
-    private ArrayList<String> node = new ArrayList<>(); //Pour tous les noeuds du graphe
-    private ArrayList<Pair<String, String>> arete = new ArrayList<Pair<String, String>>(); //Pour les arêtes
-    private ArrayList<Pair<String, String>> aretePref = new ArrayList<Pair<String, String>>(); //Pour les arêtes de préférences
+public class Graphe implements IGraphe {
+    int n;
+    private String[][] nodeAndEdge = new String[n][n]; //Ce tableau représente les arêtes entre les différents noeuds, 0 pas d'arête, 1 une arête, 2 une arête de préférence
 
-    public Graphe(ArrayList<String> node, ArrayList<Pair<String, String>> arete, ArrayList<Pair<String, String>> aretePref){
-        this.node = node;
-        this.arete = arete;
-        this.aretePref = aretePref;
+    public Graphe(String[][] nodeAndEdge, int n){
+        this.nodeAndEdge = nodeAndEdge;
+        this.n = n;
+    }
+
+    public String[][] getNodeAndEdge(){
+        return nodeAndEdge;
+    }
+
+    public ArrayList<Pair<String, Integer>> counter(){
+        ArrayList<Pair<String, Integer>> cmpt = new ArrayList<Pair<String, Integer>>();
+        int cpt;
+        for (int i = 0; i < n; i++){
+            cpt = 0;
+            for(int j = 0; j < n; j++){
+                if(nodeAndEdge[i][j] == "1" || nodeAndEdge[i][j] == "2"){
+                    cpt++;
+                }
+            }cmpt.add(new Pair<>(nodeAndEdge[i][0], cpt));
+        }return cmpt;
     }
 
     public void print(){
-        System.out.println("Node : " + node + "\nArete : " + arete + "\nAretePref : " + aretePref);
-    }
-
-    public ArrayList<String> getNode(){
-        return node;
-    }
-
-    public ArrayList<Pair<String, String>> getArete(){
-        return arete;
-    }
-
-    public ArrayList<Pair<String, String>> getAretePref(){
-        return aretePref;
-    }
-
-    public ArrayList<Pair<String, Integer>> counter(){    //Méthode pour compter le nombres d'arêtes par noeuds
-        ArrayList<Pair<String, Integer>> cmpt = new ArrayList<Pair<String, Integer>>();
-        for(String e : this.node){
-            int cnt = 0;
-            for(int i=0; i <= arete.size()-1; i++){
-                if (arete.get(i).left == e || arete.get(i).right == e)
-                    cnt++;
-            }if (aretePref.size() != 0){
-                for (int j = 0; j <= aretePref.size()-1; j++){
-                    if (aretePref.get(j).left == e || aretePref.get(j).right == e)
-                        cnt++;
+        String edge;
+        for (int i = 0; i < n; i++){
+            edge= "";
+            for (int j = 0; j < n; j++){
+                if (nodeAndEdge[i][j] == "1"){
+                    edge = edge + " " + nodeAndEdge[0][j];
+                }else if (nodeAndEdge[i][j] == "2"){
+                    edge = edge + " " + nodeAndEdge[0][j];
                 }
-            }
-            cmpt.add(new Pair<>(e,cnt));
-        } return cmpt;
+            }System.out.println("Noeud : " + nodeAndEdge[i][0] + "Arêtes : " + edge);
+        }
     }
-
 }
