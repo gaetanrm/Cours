@@ -30,9 +30,13 @@ class ColorGraph {
     }
 
     public void ColorAlgo(Graphe graph, int k){
-        ArrayList<String> nodeSpill = new ArrayList<String>();  //Liste des noeuds spillé
-        ArrayList<String> nodeColor = new ArrayList<String>();  //Liste des noeuds colorés
+        ArrayList<String> nodeSpill = new ArrayList<String>();  //Liste des noeuds spillés
+        ArrayList<Pair<String, Integer>> nodeColor = new ArrayList<Pair<String, Integer>>();  //Liste des noeuds colorés
+        int cmpt = 0;
 
+        for (Pair<String, Integer> e : graph.counter()){
+
+        }
 
 
     }

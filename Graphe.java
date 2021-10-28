@@ -27,16 +27,20 @@ class  Graphe {
         return aretePref;
     }
 
-    public ArrayList<Integer> counter(){
-        ArrayList<Integer> cmpt = new ArrayList<Integer>(); //Dans cette liste, les valeurs pour chaque noeuds ont le meme indice que dans la liste node
+    public ArrayList<Pair<String, Integer>> counter(){    //Méthode pour compter le nombres d'arêtes par noeuds
+        ArrayList<Pair<String, Integer>> cmpt = new ArrayList<Pair<String, Integer>>();
         for(String e : this.node){
             int cnt = 0;
-            for(int i=0; i < arete.size()-1; i++){
-                if (arete.get(i).left.contains(e))
+            for(int i=0; i <= arete.size()-1; i++){
+                if (arete.get(i).left == e || arete.get(i).right == e)
                     cnt++;
-                else if(arete.get(i).right.contains(e))
-                    cnt++;
-            }cmpt.add(cnt);
+            }if (aretePref.size() != 0){
+                for (int j = 0; j <= aretePref.size()-1; j++){
+                    if (aretePref.get(j).left == e || aretePref.get(j).right == e)
+                        cnt++;
+                }
+            }
+            cmpt.add(new Pair<>(e,cnt));
         } return cmpt;
     }
 
