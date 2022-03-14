@@ -1,0 +1,60 @@
+Fixpoint mult (n m : nat) {struct n} : nat :=
+  match n with
+  | 0 => 0
+  | S p => n * mult p m
+  end.
+    
+
+Print mult.
+
+Parameter A B C : Prop.
+
+Lemma p1 : A -> B -> A.
+Proof.
+  intro.
+  intro.
+  assumption.
+Qed.
+
+Lemma p2 : (A -> B -> C) -> (A -> B) -> A -> C. 
+Proof.
+  intro.
+  intro.
+  intro.
+  apply (H H1 (H0 H1)).
+Qed.
+
+Lemma p3 : A /\ B -> B.
+Proof.
+  intro.
+  elim H.
+  clear H.
+  intros.
+  assumption.
+Qed.
+  
+  
+
+Lemma p4 : B -> A \/ B.
+Proof.
+  intros.
+  right.
+  assumption.
+Qed.
+
+
+Lemma p5 : (A \/ B) -> (A -> C) -> (B -> C) -> C.
+Proof.
+  intros.
+  elim H.
+  apply H0.
+  apply H1.
+Qed.
+
+
+
+Inductive is_fact : nat -> nat -> Prop :=
+| is_fact_O : is_fact 0 1
+| is_fact_S : forall n s : nat,
+is_fact n s -> is_fact (S n) (s * (S n)).
+  
